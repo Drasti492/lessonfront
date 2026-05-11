@@ -1,10 +1,6 @@
-/* =============================================
-   EduPlan — script.js
-   Handles all frontend logic.
-   Backend URL: change BASE_URL to match your server.
-============================================= */
+document.addEventListener("DOMContentLoaded", () => {
 
-const BASE_URL = 'http://localhost:3000'; // ← Change to your backend URL when deployed
+const BASE_URL = 'https://lessonplans-l3b1.onrender.com'; // ← Change to your backend URL when deployed
 
 /* ===================== STATE ===================== */
 const state = {
@@ -354,3 +350,7 @@ async function retrySingle(index, lesson) {
 
 /* ===================== INIT ===================== */
 buildTopics();
+
+buildTopics();
+
+});
