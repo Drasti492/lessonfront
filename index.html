@@ -22,7 +22,6 @@
     </div>
     <span class="logo-text">Edu<strong>Plan</strong></span>
   </div>
-
   <div class="step-pills">
     <div class="pill active" id="pill-1"><span class="pill-num">1</span><span class="pill-label">Setup</span></div>
     <div class="pill-arrow">›</div>
@@ -45,7 +44,6 @@
   </div>
 </section>
 
-<!-- MAIN -->
 <div class="main-wrap">
 
   <!-- ══════════════ STEP 1: Setup ══════════════ -->
@@ -76,9 +74,12 @@
         <input type="text" id="subject" placeholder="e.g. Geography">
       </div>
       <div class="field">
-        <label>Form / Class <span class="req">*</span></label>
-        <select id="form">
-          <option value="">Select Form</option>
+        <label>Grade / Class <span class="req">*</span></label>
+        <select id="grade">
+          <option value="">Select Grade</option>
+          <option>Grade 7</option>
+          <option>Grade 8</option>
+          <option>Grade 9</option>
           <option>Form 1</option>
           <option>Form 2</option>
           <option>Form 3</option>
@@ -107,26 +108,17 @@
       </div>
       <div class="field">
         <label>Year</label>
-        <input type="number" id="year" value="2026">
+        <input type="number" id="year" value="2025">
       </div>
-      <div class="field">
-        <label>Lesson Type</label>
-        <select id="lessonType">
-          <option>Theory</option>
-          <option>Practical</option>
-          <option>Discussion</option>
-          <option>Revision</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Reference Book</label>
-        <input type="text" id="referenceBook" placeholder="e.g. KLB Geography Form 2">
-      </div>
-      <div class="field full">
-        <label>General Objectives</label>
-        <input type="text" id="generalObjectives"
-          placeholder="e.g. By the end of the topic, learners should be able to explain faulting and its effects.">
-      </div>
+    </div>
+
+    <!-- Info note -->
+    <div class="info-bar" style="margin-top:20px;">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" stroke="#2E6DB4" stroke-width="2"/>
+        <path d="M12 8v4M12 16h.01" stroke="#2E6DB4" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      Reference book, objectives, and topic details are automatically extracted from your scheme of work — no need to enter them manually.
     </div>
 
     <!-- Logo upload -->
@@ -154,7 +146,7 @@
       <div class="panel-num">02</div>
       <div>
         <h2>Scheme of Work</h2>
-        <p>Upload your scheme — the AI uses it to generate accurate, scheme-specific content for every lesson.</p>
+        <p>Paste or upload your scheme — the AI reads topics, objectives, activities, resources and assessment directly from it.</p>
       </div>
     </div>
 
@@ -163,7 +155,10 @@
         <circle cx="12" cy="12" r="10" stroke="#2E6DB4" stroke-width="2"/>
         <path d="M12 8v4M12 16h.01" stroke="#2E6DB4" stroke-width="2" stroke-linecap="round"/>
       </svg>
-      The AI strictly relies on this scheme — topics, page references, activities, and week/lesson numbers are all pulled from here. The more complete your scheme, the better each lesson plan.
+      <span>
+        <strong>How to paste:</strong> Open your scheme in Word or Excel → Select All → Copy → Paste below.
+        The AI extracts everything automatically — topic, sub-topic, objectives, activities, resources, and assessment.
+      </span>
     </div>
 
     <div class="scheme-drop" onclick="document.getElementById('schemeInput').click()">
@@ -177,13 +172,20 @@
     <div id="schemeFileName" class="file-tag" style="display:none"></div>
 
     <div class="field full" style="margin-top:20px">
-      <label>Or Paste Scheme Content Directly</label>
-      <textarea id="schemeText" rows="8"
-        placeholder="Paste your scheme here — week numbers, topics, subtopics, activities, page references..."></textarea>
+      <label>Or Paste Scheme Content Directly <span class="req">*</span></label>
+      <textarea id="schemeText" rows="10"
+        placeholder="Paste your full scheme here — include week numbers, lesson numbers, topics, objectives, activities, methods, resources, and assessment columns..."></textarea>
+    </div>
+
+    <!-- Scheme preview -->
+    <div id="schemePreviewWrap" style="display:none; margin-top:16px;">
+      <div class="section-sub">Detected Lessons</div>
+      <div id="schemePreview" class="scheme-preview-grid"></div>
     </div>
 
     <div class="btn-row">
       <button class="btn ghost"   onclick="goTo(1)">← Back</button>
+      <button class="btn secondary" onclick="previewScheme()">🔍 Preview Detected Lessons</button>
       <button class="btn primary" onclick="goTo(3)">Continue to Schedule →</button>
     </div>
   </div>
@@ -193,12 +195,11 @@
     <div class="panel-head">
       <div class="panel-num">03</div>
       <div>
-        <h2>Lesson Schedule &amp; Topics</h2>
-        <p>Select your teaching days, set times and lesson count per day, then generate rows for each lesson.</p>
+        <h2>Lesson Schedule</h2>
+        <p>Select teaching days and times, set week range, then generate lesson rows. Add a date to each row.</p>
       </div>
     </div>
 
-    <!-- Week range -->
     <div class="form-grid week-grid">
       <div class="field">
         <label>Start Week <span class="req">*</span></label>
@@ -210,22 +211,18 @@
       </div>
     </div>
 
-    <!-- Day selector -->
-    <div class="section-sub" style="margin-top:24px; margin-bottom:12px;">
-      Select Teaching Days &amp; Times
-    </div>
+    <div class="section-sub" style="margin-top:24px; margin-bottom:12px;">Select Teaching Days &amp; Times</div>
 
     <div class="info-bar" style="margin-bottom:18px;">
       <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="10" stroke="#2E6DB4" stroke-width="2"/>
         <path d="M12 8v4M12 16h.01" stroke="#2E6DB4" stroke-width="2" stroke-linecap="round"/>
       </svg>
-      Tick each day you teach. Set the lesson time and whether it's a single (40 min) or double (80 min) lesson. A double lesson generates one plan covering 80 minutes.
+      Tick each day you teach. The lesson number resets each week (L1, L2, L3…) to match your scheme's per-week numbering.
     </div>
 
     <div id="daySelectorWrap" class="day-selector-wrap"></div>
 
-    <!-- Generate rows button -->
     <div class="topics-toolbar">
       <button class="btn secondary" onclick="buildTopics()">
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
@@ -233,9 +230,7 @@
         </svg>
         Generate Lesson Rows
       </button>
-      <span class="toolbar-hint">
-        Creates one row per day per week. Fill in Topic and Sub-Topic for each.
-      </span>
+      <span class="toolbar-hint">One row per day per week. Add the lesson date for each row.</span>
     </div>
 
     <div id="topicsContainer"></div>
@@ -252,7 +247,7 @@
       <div class="panel-num">04</div>
       <div>
         <h2>Generate Lesson Plans</h2>
-        <p>Gemini AI will generate each plan from your scheme of work and download it as DOCX.</p>
+        <p>Gemini AI generates each plan from your scheme of work and downloads it as DOCX.</p>
       </div>
     </div>
 
@@ -282,10 +277,9 @@
     </div>
   </div>
 
-</div><!-- /main-wrap -->
+</div>
 
 <div class="toast" id="toast"></div>
-
 <script src="app.js"></script>
 </body>
 </html>
