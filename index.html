@@ -16,7 +16,8 @@
   <div class="logo-area">
     <div class="logo-box">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
     <span class="logo-text">Edu<strong>Plan</strong></span>
@@ -39,20 +40,21 @@
   <div class="hero-content">
     <div class="hero-badge">Powered by Gemini AI</div>
     <h1>Professional Lesson Plans<br><span>Generated Instantly</span></h1>
-    <p>Complete lesson plans with objectives, domains, stages, activities and evaluations — formatted exactly to your institution's standard.</p>
+    <p>Complete lesson plans with objectives, domains, stages, activities and evaluations —
+       formatted exactly to your institution's standard.</p>
   </div>
 </section>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN -->
 <div class="main-wrap">
 
-  <!-- ====== STEP 1: Setup ====== -->
+  <!-- STEP 1 -->
   <div class="step-panel active" id="step-1">
     <div class="panel-head">
       <div class="panel-num">01</div>
       <div>
-        <h2>Student Teacher & School Information</h2>
-        <p>This information will appear on the header of each lesson plan document.</p>
+        <h2>Student Teacher &amp; School Information</h2>
+        <p>This information will appear on the header of every lesson plan document.</p>
       </div>
     </div>
 
@@ -71,7 +73,7 @@
       </div>
       <div class="field">
         <label>Subject <span class="req">*</span></label>
-        <input type="text" id="subject" placeholder="e.g. Mathematics">
+        <input type="text" id="subject" placeholder="e.g. Geography">
       </div>
       <div class="field">
         <label>Form / Class <span class="req">*</span></label>
@@ -118,30 +120,30 @@
       </div>
       <div class="field">
         <label>Reference Book</label>
-        <input type="text" id="referenceBook" placeholder="e.g. KLB Mathematics Form 3">
+        <input type="text" id="referenceBook" placeholder="e.g. KLB Geography Form 2">
       </div>
     </div>
 
-    <!-- Signatures Row -->
+    <!-- Signatures -->
     <div class="sig-section">
       <h3 class="section-sub">Signatures</h3>
-      <div class="form-grid sig-grid">
+      <div class="form-grid">
         <div class="field">
           <label>Teacher Signature</label>
-          <input type="text" id="teacherSignature" placeholder="Leave blank or type name">
+          <input type="text" id="teacherSignature" placeholder="Type name or leave blank">
         </div>
         <div class="field">
           <label>HOD Signature</label>
-          <input type="text" id="hodSignature" placeholder="Leave blank or type name">
+          <input type="text" id="hodSignature" placeholder="Type name or leave blank">
         </div>
         <div class="field">
           <label>Principal Signature</label>
-          <input type="text" id="principalSignature" placeholder="Leave blank or type name">
+          <input type="text" id="principalSignature" placeholder="Type name or leave blank">
         </div>
       </div>
     </div>
 
-    <!-- Logo Upload -->
+    <!-- Logo -->
     <div class="upload-block">
       <h3 class="section-sub">School / University Logo</h3>
       <div class="logo-drop" id="logoDrop" onclick="document.getElementById('logoInput').click()">
@@ -160,22 +162,25 @@
     </div>
   </div>
 
-  <!-- ====== STEP 2: Scheme ====== -->
+  <!-- STEP 2 -->
   <div class="step-panel" id="step-2">
     <div class="panel-head">
       <div class="panel-num">02</div>
       <div>
         <h2>Scheme of Work</h2>
-        <p>Upload your scheme of work so Gemini AI can generate contextually accurate lesson content.</p>
+        <p>Upload your scheme so the AI can generate contextually accurate lesson content.</p>
       </div>
     </div>
 
     <div class="info-bar">
-      <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#2E6DB4" stroke-width="2"/><path d="M12 8v4M12 16h.01" stroke="#2E6DB4" stroke-width="2" stroke-linecap="round"/></svg>
-      Upload a DOCX or TXT scheme, or paste the content manually. This helps Gemini generate accurate topics and activities.
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" stroke="#2E6DB4" stroke-width="2"/>
+        <path d="M12 8v4M12 16h.01" stroke="#2E6DB4" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      Upload a DOCX or TXT scheme, or paste the content manually. The AI uses this to generate accurate topics and activities.
     </div>
 
-    <div class="scheme-drop" id="schemeDrop" onclick="document.getElementById('schemeInput').click()">
+    <div class="scheme-drop" onclick="document.getElementById('schemeInput').click()">
       <input type="file" id="schemeInput" accept=".txt,.doc,.docx" style="display:none">
       <div class="drop-icon-lg">📄</div>
       <h3>Drop your Scheme of Work here</h3>
@@ -187,22 +192,23 @@
 
     <div class="field full" style="margin-top:20px">
       <label>Or Paste Scheme Content Directly</label>
-      <textarea id="schemeText" rows="8" placeholder="Paste your scheme of work content here — week numbers, topics, subtopics, references..."></textarea>
+      <textarea id="schemeText" rows="8"
+        placeholder="Paste your scheme of work here — week numbers, topics, subtopics, references..."></textarea>
     </div>
 
     <div class="btn-row">
-      <button class="btn ghost" onclick="goTo(1)">← Back</button>
+      <button class="btn ghost"   onclick="goTo(1)">← Back</button>
       <button class="btn primary" onclick="goTo(3)">Continue to Schedule →</button>
     </div>
   </div>
 
-  <!-- ====== STEP 3: Schedule ====== -->
+  <!-- STEP 3 -->
   <div class="step-panel" id="step-3">
     <div class="panel-head">
       <div class="panel-num">03</div>
       <div>
-        <h2>Lesson Schedule & Details</h2>
-        <p>Set your teaching weeks and lesson timing, then fill in topics for each lesson.</p>
+        <h2>Lesson Schedule &amp; Details</h2>
+        <p>Set your teaching weeks and timing, then fill in topics for each lesson.</p>
       </div>
     </div>
 
@@ -237,35 +243,38 @@
           <option>Friday</option>
         </select>
       </div>
-      <div class="field">
+      <div class="field full">
         <label>General Objectives</label>
-        <input type="text" id="generalObjectives" placeholder="e.g. By the end of the lesson, learners should be able to...">
+        <input type="text" id="generalObjectives"
+          placeholder="e.g. By the end of the lesson, learners should be able to...">
       </div>
     </div>
 
     <div class="topics-toolbar">
       <button class="btn secondary" onclick="buildTopics()">
-        <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
+          <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
         Generate Lesson Rows
       </button>
-      <span class="toolbar-hint">Click to create editable rows for each lesson in the range above.</span>
+      <span class="toolbar-hint">Click to create a row for each lesson in the week range above.</span>
     </div>
 
     <div id="topicsContainer"></div>
 
     <div class="btn-row">
-      <button class="btn ghost" onclick="goTo(2)">← Back</button>
-      <button class="btn primary" onclick="goTo(4)">Review & Generate →</button>
+      <button class="btn ghost"   onclick="goTo(2)">← Back</button>
+      <button class="btn primary" onclick="goTo(4)">Review &amp; Generate →</button>
     </div>
   </div>
 
-  <!-- ====== STEP 4: Generate ====== -->
+  <!-- STEP 4 -->
   <div class="step-panel" id="step-4">
     <div class="panel-head">
       <div class="panel-num">04</div>
       <div>
         <h2>Generate Lesson Plans</h2>
-        <p>Gemini AI will generate each lesson plan and download it as a DOCX file matching your institution's format.</p>
+        <p>The AI will generate each lesson plan and prepare it as a DOCX download.</p>
       </div>
     </div>
 
@@ -273,9 +282,13 @@
 
     <div class="gen-controls">
       <button class="btn gold" id="genBtn" onclick="generatePlans()">
-        <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
         Generate All Lesson Plans
       </button>
+
       <div class="progress-wrap" id="progressWrap" style="display:none">
         <div class="progress-label" id="progressText">Preparing...</div>
         <div class="progress-track">
@@ -291,11 +304,12 @@
     </div>
   </div>
 
-</div>
+</div><!-- /main-wrap -->
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<script src="script.js"></script>
+<!-- ✅ FIXED: was script.js — file is actually app.js -->
+<script src="app.js"></script>
 </body>
 </html>
