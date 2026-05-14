@@ -1,285 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>EduPlan — AI Lesson Plan Generator</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="icon" href="data:,">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-  <div class="logo-area">
-    <div class="logo-box">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+<!-- ── SIDEBAR NAV ─────────────────────────────────────────────── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
       </svg>
     </div>
-    <span class="logo-text">Edu<strong>Plan</strong></span>
+    <span>Edu<strong>Plan</strong></span>
   </div>
-  <div class="step-pills">
-    <div class="pill active" id="pill-1"><span class="pill-num">1</span><span class="pill-label">Setup</span></div>
-    <div class="pill-arrow">›</div>
-    <div class="pill" id="pill-2"><span class="pill-num">2</span><span class="pill-label">Scheme</span></div>
-    <div class="pill-arrow">›</div>
-    <div class="pill" id="pill-3"><span class="pill-num">3</span><span class="pill-label">Schedule</span></div>
-    <div class="pill-arrow">›</div>
-    <div class="pill" id="pill-4"><span class="pill-num">4</span><span class="pill-label">Generate</span></div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Lesson Builder</div>
+    <a class="nav-item active" data-step="1" onclick="goTo(1)">
+      <span class="nav-icon">①</span>
+      <span class="nav-label">Teacher Details</span>
+      <span class="nav-status" id="ns-1"></span>
+    </a>
+    <a class="nav-item" data-step="2" onclick="goTo(2)">
+      <span class="nav-icon">②</span>
+      <span class="nav-label">Subject &amp; Class</span>
+      <span class="nav-status" id="ns-2"></span>
+    </a>
+    <a class="nav-item" data-step="3" onclick="goTo(3)">
+      <span class="nav-icon">③</span>
+      <span class="nav-label">Topic &amp; Subtopic</span>
+      <span class="nav-status" id="ns-3"></span>
+    </a>
+    <a class="nav-item" data-step="4" onclick="goTo(4)">
+      <span class="nav-icon">④</span>
+      <span class="nav-label">Schedule &amp; Dates</span>
+      <span class="nav-status" id="ns-4"></span>
+    </a>
+    <a class="nav-item" data-step="5" onclick="goTo(5)">
+      <span class="nav-icon">⑤</span>
+      <span class="nav-label">Generate Plans</span>
+      <span class="nav-status" id="ns-5"></span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="db-status" id="dbStatus">
+      <span class="db-dot"></span>
+      <span class="db-label">Checking DB...</span>
+    </div>
+    <div class="version-tag">EduPlan v2.0</div>
   </div>
-</nav>
+</aside>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <div class="hero-badge">Powered by Gemini AI · Scheme-Based</div>
-    <h1>Professional Lesson Plans<br><span>Generated Instantly</span></h1>
-    <p>Complete lesson plans with objectives, domains, stages and evaluations —
-       generated from your scheme of work, formatted to your institution's standard.</p>
-  </div>
-</section>
+<!-- ── MAIN CONTENT ────────────────────────────────────────────── -->
+<div class="main-content">
 
-<div class="main-wrap">
+  <!-- Mobile header -->
+  <header class="mobile-header">
+    <button class="mob-menu-btn" onclick="toggleSidebar()">☰</button>
+    <span class="mob-logo">Edu<strong>Plan</strong></span>
+    <div class="mob-step-badge" id="mobStepBadge">Step 1 of 5</div>
+  </header>
 
-  <!-- ══════════════ STEP 1: Setup ══════════════ -->
-  <div class="step-panel active" id="step-1">
-    <div class="panel-head">
-      <div class="panel-num">01</div>
-      <div>
-        <h2>Student Teacher &amp; School Information</h2>
-        <p>This information appears on the header of every generated lesson plan.</p>
-      </div>
+  <!-- ══════════ STEP 1: Teacher Details ══════════ -->
+  <section class="step-panel active" id="step-1">
+    <div class="panel-hero">
+      <div class="panel-eyebrow">Step 1 of 5</div>
+      <h1 class="panel-title">Teacher &amp; School Details</h1>
+      <p class="panel-sub">This information appears in the header of every generated lesson plan.</p>
     </div>
 
-    <div class="form-grid">
-      <div class="field">
-        <label>Student Teacher Full Name <span class="req">*</span></label>
-        <input type="text" id="studentName" placeholder="e.g. Jane Wanjiku Kamau">
+    <div class="card">
+      <div class="card-section-label">Personal Information</div>
+      <div class="form-grid two-col">
+        <div class="field">
+          <label>Full Name <span class="req">*</span></label>
+          <input type="text" id="studentName" placeholder="e.g. Collins Kipyegon Bett" autocomplete="name">
+        </div>
+        <div class="field">
+          <label>Admission Number <span class="req">*</span></label>
+          <input type="text" id="admNo" placeholder="e.g. SKIPCO2111">
+        </div>
       </div>
-      <div class="field">
-        <label>Admission Number <span class="req">*</span></label>
-        <input type="text" id="admNo" placeholder="e.g. EDU/2023/001">
-      </div>
-      <div class="field full">
-        <label>School Name <span class="req">*</span></label>
-        <input type="text" id="schoolName" placeholder="e.g. Moi High School Kabarak">
-      </div>
-      <div class="field">
-        <label>Subject <span class="req">*</span></label>
-        <input type="text" id="subject" placeholder="e.g. Geography">
-      </div>
-      <div class="field">
-        <label>Grade / Class <span class="req">*</span></label>
-        <select id="grade">
-          <option value="">Select Grade</option>
-          <option>Grade 7</option>
-          <option>Grade 8</option>
-          <option>Grade 9</option>
-          <option>Form 1</option>
-          <option>Form 2</option>
-          <option>Form 3</option>
-          <option>Form 4</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Stream</label>
-        <input type="text" id="stream" placeholder="e.g. North, East, or leave blank">
-      </div>
-      <div class="field">
-        <label>Number of Students</label>
-        <input type="number" id="numStudents" placeholder="e.g. 42">
-      </div>
-      <div class="field">
-        <label>Default Lesson Duration (min)</label>
-        <input type="number" id="duration" value="40" min="20" max="120">
-      </div>
-      <div class="field">
-        <label>Term</label>
-        <select id="term">
-          <option>Term 1</option>
-          <option>Term 2</option>
-          <option>Term 3</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Year</label>
-        <input type="number" id="year" value="2025">
-      </div>
-    </div>
 
-    <!-- Info note -->
-    <div class="info-bar" style="margin-top:20px;">
-      <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10" stroke="#2E6DB4" stroke-width="2"/>
-        <path d="M12 8v4M12 16h.01" stroke="#2E6DB4" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      Reference book, objectives, and topic details are automatically extracted from your scheme of work — no need to enter them manually.
-    </div>
+      <div class="card-section-label" style="margin-top:1.5rem">School Information</div>
+      <div class="form-grid one-col">
+        <div class="field">
+          <label>School Name <span class="req">*</span></label>
+          <input type="text" id="schoolName" placeholder="e.g. Chesuwe Secondary School">
+        </div>
+      </div>
+      <div class="form-grid one-col">
+        <div class="field">
+          <label>Department / Faculty</label>
+          <input type="text" id="department" value="School of Education, Humanities and Social Sciences">
+        </div>
+      </div>
+      <div class="form-grid two-col">
+        <div class="field">
+          <label>Number of Students</label>
+          <input type="number" id="numStudents" placeholder="e.g. 28" min="1" max="60">
+        </div>
+        <div class="field">
+          <label>Default Lesson Duration (min)</label>
+          <input type="number" id="duration" value="40" min="20" max="120">
+        </div>
+      </div>
 
-    <!-- Logo upload -->
-    <div class="upload-block">
-      <h3 class="section-sub">School / University Logo</h3>
-      <div class="logo-drop" onclick="document.getElementById('logoInput').click()">
+      <div class="card-section-label" style="margin-top:1.5rem">School Logo <span style="font-weight:400;text-transform:none;color:var(--muted)">(optional)</span></div>
+      <div class="logo-drop" id="logoDrop" onclick="document.getElementById('logoInput').click()">
         <input type="file" id="logoInput" accept="image/*" style="display:none">
-        <div class="drop-inner" id="dropInner">
+        <div id="logoDropInner" class="drop-inner">
           <div class="drop-icon">🏫</div>
           <p>Click to upload school logo</p>
-          <small>PNG or JPG — appears top-left of each lesson plan</small>
+          <small>PNG or JPG — appears top-left of each plan</small>
         </div>
-        <img id="logoPreview" style="display:none; max-height:80px; border-radius:8px;">
+        <img id="logoPreview" alt="Logo preview" style="display:none;max-height:72px;border-radius:6px;">
       </div>
     </div>
 
-    <div class="btn-row">
-      <button class="btn primary" onclick="goTo(2)">Continue to Scheme →</button>
+    <div class="step-actions">
+      <button class="btn-next" onclick="step1Next()">Continue to Subject &amp; Class →</button>
     </div>
-  </div>
+  </section>
 
-  <!-- ══════════════ STEP 2: Scheme ══════════════ -->
-  <div class="step-panel" id="step-2">
-    <div class="panel-head">
-      <div class="panel-num">02</div>
-      <div>
-        <h2>Scheme of Work</h2>
-        <p>Paste or upload your scheme — the AI reads topics, objectives, activities, resources and assessment directly from it.</p>
+  <!-- ══════════ STEP 2: Subject & Class ══════════ -->
+  <section class="step-panel" id="step-2">
+    <div class="panel-hero">
+      <div class="panel-eyebrow">Step 2 of 5</div>
+      <h1 class="panel-title">Subject &amp; Class</h1>
+      <p class="panel-sub">Select your subject and the class you are teaching. Topics and subtopics load automatically.</p>
+    </div>
+
+    <div class="card">
+      <div class="form-grid two-col">
+        <div class="field">
+          <label>Subject <span class="req">*</span></label>
+          <select id="subjectSelect" onchange="onSubjectChange()">
+            <option value="">— Loading subjects... —</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Form / Grade <span class="req">*</span></label>
+          <select id="formSelect" onchange="onFormChange()" disabled>
+            <option value="">— Select subject first —</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Stream</label>
+          <input type="text" id="stream" placeholder="e.g. East, North (optional)">
+        </div>
       </div>
     </div>
 
-    <div class="info-bar">
-      <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10" stroke="#2E6DB4" stroke-width="2"/>
-        <path d="M12 8v4M12 16h.01" stroke="#2E6DB4" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      <span>
-        <strong>How to paste:</strong> Open your scheme in Word or Excel → Select All → Copy → Paste below.
-        The AI extracts everything automatically — topic, sub-topic, objectives, activities, resources, and assessment.
-      </span>
+    <div class="step-actions">
+      <button class="btn-back" onclick="goTo(1)">← Back</button>
+      <button class="btn-next" onclick="step2Next()">Continue to Topic →</button>
+    </div>
+  </section>
+
+  <!-- ══════════ STEP 3: Topic & Subtopic ══════════ -->
+  <section class="step-panel" id="step-3">
+    <div class="panel-hero">
+      <div class="panel-eyebrow">Step 3 of 5</div>
+      <h1 class="panel-title">Topic &amp; Subtopics</h1>
+      <p class="panel-sub">Select the topic, then choose which subtopics (lessons) you want to generate plans for.</p>
     </div>
 
-    <div class="scheme-drop" onclick="document.getElementById('schemeInput').click()">
-      <input type="file" id="schemeInput" accept=".txt,.doc,.docx" style="display:none">
-      <div class="drop-icon-lg">📄</div>
-      <h3>Upload your Scheme of Work</h3>
-      <p>DOCX or TXT — text is extracted automatically</p>
-      <div class="drop-btn">Choose File</div>
-    </div>
+    <div class="card">
+      <div class="field" style="margin-bottom:1.25rem">
+        <label>Topic <span class="req">*</span></label>
+        <div class="searchable-select-wrap">
+          <input type="text" id="topicSearch" placeholder="Search or select topic..." oninput="filterTopics()" autocomplete="off">
+          <div class="topic-dropdown" id="topicDropdown"></div>
+        </div>
+        <div class="selected-topic-badge" id="selectedTopicBadge" style="display:none"></div>
+      </div>
 
-    <div id="schemeFileName" class="file-tag" style="display:none"></div>
-
-    <div class="field full" style="margin-top:20px">
-      <label>Or Paste Scheme Content Directly <span class="req">*</span></label>
-      <textarea id="schemeText" rows="10"
-        placeholder="Paste your full scheme here — include week numbers, lesson numbers, topics, objectives, activities, methods, resources, and assessment columns..."></textarea>
-    </div>
-
-    <!-- Scheme preview -->
-    <div id="schemePreviewWrap" style="display:none; margin-top:16px;">
-      <div class="section-sub">Detected Lessons</div>
-      <div id="schemePreview" class="scheme-preview-grid"></div>
-    </div>
-
-    <div class="btn-row">
-      <button class="btn ghost"   onclick="goTo(1)">← Back</button>
-      <button class="btn secondary" onclick="previewScheme()">🔍 Preview Detected Lessons</button>
-      <button class="btn primary" onclick="goTo(3)">Continue to Schedule →</button>
-    </div>
-  </div>
-
-  <!-- ══════════════ STEP 3: Schedule ══════════════ -->
-  <div class="step-panel" id="step-3">
-    <div class="panel-head">
-      <div class="panel-num">03</div>
-      <div>
-        <h2>Lesson Schedule</h2>
-        <p>Select teaching days and times, set week range, then generate lesson rows. Add a date to each row.</p>
+      <div id="subtopicSection" style="display:none">
+        <div class="card-section-label" style="margin-bottom:.75rem">
+          Subtopics (Lessons)
+          <span class="subtopic-count-badge" id="subtopicCountBadge"></span>
+        </div>
+        <div class="info-bar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Tick each subtopic you want a lesson plan for. They appear as rows in Step 4.
+        </div>
+        <div id="subtopicList" class="subtopic-list"></div>
+        <div class="subtopic-actions">
+          <button class="btn-link" onclick="selectAllSubtopics()">Select all</button>
+          <button class="btn-link" onclick="clearSubtopics()">Clear all</button>
+        </div>
       </div>
     </div>
 
-    <div class="form-grid week-grid">
-      <div class="field">
-        <label>Start Week <span class="req">*</span></label>
-        <input type="number" id="startWeek" value="1" min="1" max="14">
-      </div>
-      <div class="field">
-        <label>End Week <span class="req">*</span></label>
-        <input type="number" id="endWeek" value="3" min="1" max="14">
-      </div>
+    <div class="step-actions">
+      <button class="btn-back" onclick="goTo(2)">← Back</button>
+      <button class="btn-next" onclick="step3Next()">Continue to Schedule →</button>
+    </div>
+  </section>
+
+  <!-- ══════════ STEP 4: Schedule & Dates ══════════ -->
+  <section class="step-panel" id="step-4">
+    <div class="panel-hero">
+      <div class="panel-eyebrow">Step 4 of 5</div>
+      <h1 class="panel-title">Schedule &amp; Lesson Dates</h1>
+      <p class="panel-sub">Select teaching days, set times, then assign a date to each lesson row below.</p>
     </div>
 
-    <div class="section-sub" style="margin-top:24px; margin-bottom:12px;">Select Teaching Days &amp; Times</div>
-
-    <div class="info-bar" style="margin-bottom:18px;">
-      <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10" stroke="#2E6DB4" stroke-width="2"/>
-        <path d="M12 8v4M12 16h.01" stroke="#2E6DB4" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      Tick each day you teach. The lesson number resets each week (L1, L2, L3…) to match your scheme's per-week numbering.
-    </div>
-
-    <div id="daySelectorWrap" class="day-selector-wrap"></div>
-
-    <div class="topics-toolbar">
-      <button class="btn secondary" onclick="buildTopics()">
-        <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
-          <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        Generate Lesson Rows
+    <div class="card" style="margin-bottom:1.25rem">
+      <div class="card-section-label">Teaching Days &amp; Times</div>
+      <div class="info-bar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Tick each day you teach this class. Lesson numbers are assigned automatically per the subtopic order you selected.
+      </div>
+      <div id="daySelectorWrap" class="day-selector-wrap"></div>
+      <button class="btn-secondary" style="margin-top:1rem" onclick="buildScheduleRows()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+        Build Lesson Rows
       </button>
-      <span class="toolbar-hint">One row per day per week. Add the lesson date for each row.</span>
     </div>
 
-    <div id="topicsContainer"></div>
-
-    <div class="btn-row">
-      <button class="btn ghost"   onclick="goTo(2)">← Back</button>
-      <button class="btn primary" onclick="goTo(4)">Review &amp; Generate →</button>
-    </div>
-  </div>
-
-  <!-- ══════════════ STEP 4: Generate ══════════════ -->
-  <div class="step-panel" id="step-4">
-    <div class="panel-head">
-      <div class="panel-num">04</div>
-      <div>
-        <h2>Generate Lesson Plans</h2>
-        <p>Gemini AI generates each plan from your scheme of work and downloads it as DOCX.</p>
+    <div id="scheduleTableWrap" style="display:none">
+      <div class="card">
+        <div class="card-section-label">Lesson Date Assignment</div>
+        <div class="info-bar" style="margin-bottom:1rem">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Set the date for each lesson. Rows marked <strong>DBL</strong> are double lessons (80 min).
+        </div>
+        <div class="schedule-table-wrap">
+          <table class="schedule-table" id="scheduleTable">
+            <thead>
+              <tr>
+                <th>Lesson</th>
+                <th>Subtopic</th>
+                <th>Day &amp; Time</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="scheduleBody"></tbody>
+          </table>
+        </div>
       </div>
     </div>
 
-    <div class="summary-card" id="summaryBox"></div>
+    <div class="step-actions">
+      <button class="btn-back" onclick="goTo(3)">← Back</button>
+      <button class="btn-next" onclick="step4Next()">Review &amp; Generate →</button>
+    </div>
+  </section>
 
-    <div class="gen-controls">
-      <button class="btn gold" id="genBtn" onclick="generatePlans()">
-        <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
-          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- ══════════ STEP 5: Generate ══════════ -->
+  <section class="step-panel" id="step-5">
+    <div class="panel-hero">
+      <div class="panel-eyebrow">Step 5 of 5</div>
+      <h1 class="panel-title">Generate Lesson Plans</h1>
+      <p class="panel-sub">Review your summary then generate all plans. Each downloads as a professional DOCX file.</p>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary-strip" id="summaryStrip"></div>
+
+    <!-- Generate button + progress -->
+    <div class="card gen-card">
+      <button class="btn-generate" id="genBtn" onclick="generateAll()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         Generate All Lesson Plans
       </button>
 
-      <div class="progress-wrap" id="progressWrap" style="display:none">
-        <div class="progress-label" id="progressText">Preparing...</div>
+      <div class="progress-section" id="progressSection" style="display:none">
+        <div class="progress-text" id="progressText">Preparing...</div>
         <div class="progress-track">
-          <div class="progress-bar" id="progressFill"></div>
+          <div class="progress-fill" id="progressFill"></div>
         </div>
+        <div class="progress-fraction" id="progressFraction">0 / 0</div>
       </div>
     </div>
 
-    <div id="plansGrid"></div>
+    <!-- Plans grid -->
+    <div id="plansGrid" class="plans-grid"></div>
 
-    <div class="btn-row" style="margin-top:20px">
-      <button class="btn ghost" onclick="goTo(3)">← Back</button>
+    <div class="step-actions">
+      <button class="btn-back" onclick="goTo(4)">← Back to Schedule</button>
     </div>
-  </div>
+  </section>
 
-</div>
+</div><!-- /main-content -->
 
 <div class="toast" id="toast"></div>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
 <script src="app.js"></script>
 </body>
 </html>
